@@ -38,7 +38,7 @@
 
     function removeBackground(res, next) {
       console.log('removing background...');
-      gm(res.Body).transparent('white').trim().toBuffer((err, buff) => {
+      gm(res.Body).transparent('#FFFFFF').toBuffer((err, buff) => {
         if (err)
           console.log('error converting image');
 
