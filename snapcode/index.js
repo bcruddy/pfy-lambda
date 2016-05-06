@@ -38,15 +38,19 @@
 
     function removeBackground(res, next) {
       console.log('removing background...');
-      gm(res.Body).transparent('#FFFFFF').toBuffer((err, buff) => {
-        if (err)
-          console.log('error converting image');
+      gm(res.Body)
+        .fuzz('53%')
+        .transparent('#FFFFFF')
+        .antialias()
+        .toBuffer((err, buff) => {
+          if (err)
+            console.log('error converting image');
 
-        if (err)
-          next(err);
-        else
-          next(null, buff);
-      });
+          if (err)
+            next(err);
+          else
+            next(null, buff);
+        });
     }
 
     function saveImage(buffer, next) {

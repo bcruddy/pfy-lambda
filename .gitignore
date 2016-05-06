@@ -28,4 +28,5 @@ Photofy.Portal/Photofy.Portal.Web/imagecache
 
 node_modules
 *.zip
-test-images/
+*/test-images/
+*/test.js
