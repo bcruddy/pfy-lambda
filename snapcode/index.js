@@ -14,11 +14,7 @@
     const srcKey = decodeURIComponent(event.Records[0].s3.object.key).replace(/\+/g, ' ');
 
     let filename = srcKey.split('/').reverse()[0];
-    console.log('FILENAME:', filename);
-    console.log('BUCKET:', bucket);
-    console.log('SRCKEY', srcKey);
     let destKey = 'snapcodes/' + filename;
-    console.log('DESTKEY', destKey);
 
 
     function getImage(next) {
@@ -36,10 +32,11 @@
       });
     }
 
+
     function removeBackground(res, next) {
       console.log('removing background...');
       gm(res.Body)
-        .fuzz('53%')
+        .fuzz('53%') // woooo magic numbers! 53% was found via guess and check to work the best
         .transparent('#FFFFFF')
         .antialias()
         .toBuffer((err, buff) => {
@@ -53,9 +50,9 @@
         });
     }
 
+
     function saveImage(buffer, next) {
       console.log('saving image...');
-
 
       S3.putObject({ Bucket: bucket, Key: destKey, Body: buffer, ContentType: 'image/png' }, (err, data) => {
         if (err)
@@ -69,6 +66,7 @@
           next(null, data);
       });
     }
+
 
     function final(err, data) {
       console.log('finally!');
