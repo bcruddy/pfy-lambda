@@ -69,7 +69,6 @@
 
 
     function final(err, data) {
-      console.log('finally!');
       if (err || (_.has(data, 'error') && data.error !== null)) {
         console.log('error saving', bucket + '/' + destKey);
         context.fail(err.stack);
