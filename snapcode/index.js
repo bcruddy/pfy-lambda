@@ -10,6 +10,8 @@
       _ = require('lodash');
     const S3 = new AWS.S3();
 
+    const MAGIC_FUZZ = "53%"; // woooo magic numbers! 53% was found via guess and check to work the best
+
     const bucket = event.Records[0].s3.bucket.name;
     const srcKey = decodeURIComponent(event.Records[0].s3.object.key).replace(/\+/g, ' ');
 
@@ -36,7 +38,7 @@
     function removeBackground(res, next) {
       console.log('removing background...');
       gm(res.Body)
-        .fuzz('53%') // woooo magic numbers! 53% was found via guess and check to work the best
+        .fuzz(MAGIC_FUZZ)
         .transparent('#FFFFFF')
         .antialias()
         .toBuffer((err, buff) => {
