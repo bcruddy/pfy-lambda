@@ -1,4 +1,4 @@
-A collection of Lambda Functions for various tasks at Photofy.
+A collection of Lambda Functions for various tasks
 
 ####[SnapCode](https://github.com/bcruddy/pfy-lambda/tree/master/snapcode)
 Lambda function for removing the white background from a an image (in this case a Snapchat snapcode).
